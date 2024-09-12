@@ -2,6 +2,7 @@
 //#include <stdio.h>
 #include <stdarg.h>
 #include <math.h>
+#define USE_FC_LEN_T
 #include <R_ext/BLAS.h>
 #include <R_ext/Lapack.h>
 #include <R_ext/Linpack.h>
@@ -9,22 +10,26 @@
 #include <R_ext/Random.h>
 #include "matrix.h"
 
+#ifndef FCONE
+#define FCONE
+#endif
+
 void free_mat(matrix *M){
 
-  Free(M->entries);
-  Free(M);
+  R_Free(M->entries);
+  R_Free(M);
 
 }
 
 void free_mat3(matrix3 *M){
-  Free(M->entries);
-  Free(M);
+  R_Free(M->entries);
+  R_Free(M);
 }
 
 void free_vec(vector *V){
 
-  Free(V->entries);
-  Free(V);
+  R_Free(V->entries);
+  R_Free(V);
 
 }
 

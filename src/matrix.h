@@ -1,6 +1,7 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
+#define USE_FC_LEN_T
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
@@ -15,6 +16,12 @@
 #include <R.h>
 #include <Rinternals.h>
 
+
+#ifndef FCONE
+#define FCONE
+#endif
+
+
 #define ME(matrix,row,col) (((matrix)->entries)[(col) * ((matrix)->nr) + (row)])
 #define ME3(matrix3,dim1,row,col) (((matrix3)->entries)[(dim1)*(((matrix3)->nr)*((matrix3)->nc))+(col)*((matrix3)->nr)+(row)])
 //#define ME3(matrix3,dim1,row,col) (((matrix3)->entries)[(col)*(((matrix3)->nr)*((matrix3)->dim))+(row)*((matrix3)->dim)+(dim1)]) //JL
@@ -22,11 +29,11 @@
 #define oops(s) {error((s));}
 #define max(a,b) ( ((a) > (b)) ? (a) : (b) )
 #define min(a,b) ( ((a) > (b)) ? (b) : (a) )
-#define malloc_mat(NR, NC, M) { (M) = Calloc(1,matrix); ((M)->nr) = (NR); ((M)->nc) = (NC); ((M)->entries) = Calloc(((NR)*(NC)) , double);}
+#define malloc_mat(NR, NC, M) { (M) = R_Calloc(1,matrix); ((M)->nr) = (NR); ((M)->nc) = (NC); ((M)->entries) = R_Calloc(((NR)*(NC)) , double);}
 //#define malloc_mat3(DIM,NR, NC, M3) {(M3) = Calloc(1,matrix); ((M3)->dim)=(DIM); ((M3)->nr) = (NR); ((M3)->nc) = (NC); ((M3)->entries) = Calloc(((DIM)*(NR)*(NC)) , double);}
 //JL
-#define malloc_mat3(DIM,NR, NC, M3) {(M3) = Calloc(1,matrix3); ((M3)->dim)=(DIM); ((M3)->nr) = (NR); ((M3)->nc) = (NC); ((M3)->entries) = Calloc(((DIM)*(NR)*(NC)) , double);}
-#define malloc_vec(L, V) { (V) = Calloc(1,::vector); ((V)->length) = (L); ((V)->entries) = Calloc((L), double);}
+#define malloc_mat3(DIM,NR, NC, M3) {(M3) = R_Calloc(1,matrix3); ((M3)->dim)=(DIM); ((M3)->nr) = (NR); ((M3)->nc) = (NC); ((M3)->entries) = R_Calloc(((DIM)*(NR)*(NC)) , double);}
+#define malloc_vec(L, V) { (V) = R_Calloc(1,::vector); ((V)->length) = (L); ((V)->entries) = R_Calloc((L), double);}
 
 typedef struct{
   int dim;
